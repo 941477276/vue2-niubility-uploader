@@ -1,0 +1,36 @@
+export default {
+  nbUploader: {
+    statusMap: {
+      pending: '待上傳',
+      checking: '檢查中...',
+      uploading: '上傳中',
+      completed: '已完成',
+      error: '上傳失敗',
+      cancelled: '已取消',
+      paused: '已暫停'
+    },
+    dragFileText: '拖放文件到此处 或',
+    chooseFileText: '点击选择文件',
+    previewImg: '預覽圖片',
+    clickToPreviewImg: '點擊查看圖片',
+    fileIcon: '檔案圖示',
+    speed: '速度',
+    remaining: '剩餘',
+    startUpload: '開始上傳',
+    pauseUpload: '暫停上傳',
+    cancelUpload: '取消上傳',
+    removeFile: '移除檔案',
+    zoomIn: '放大',
+    zoomOut: '縮小',
+    resetZoom: '重設縮放',
+    rotateLeft: '向左旋轉',
+    rotateRight: '向右旋轉',
+    resetRotation: '重設旋轉',
+    loadImgError: '無法載入圖片',
+    close: '關閉',
+    removeAll: '移除全部',
+    cancelAll: '取消全部',
+    pauseAll: '暫停全部',
+    uploadAll: '上傳全部',
+  }
+};

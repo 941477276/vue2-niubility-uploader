@@ -1,0 +1,36 @@
+export default {
+  nbUploader: {
+    statusMap: {
+      pending: 'Pending',
+      checking: 'Checking...',
+      uploading: 'Uploading',
+      completed: 'Completed',
+      error: 'Upload Failed',
+      cancelled: 'Cancelled',
+      paused: 'Paused'
+    },
+    dragFileText: 'Drag and drop files here or ',
+    chooseFileText: 'click to select files',
+    previewImg: 'Preview Image',
+    clickToPreviewImg: 'Click to View Image',
+    fileIcon: 'File Icon',
+    speed: 'Speed',
+    remaining: 'Remaining',
+    startUpload: 'Start Upload',
+    pauseUpload: 'Pause Upload',
+    cancelUpload: 'Cancel Upload',
+    removeFile: 'Remove File',
+    zoomIn: 'Zoom In',
+    zoomOut: 'Zoom Out',
+    resetZoom: 'Reset Zoom',
+    rotateLeft: 'Rotate Left',
+    rotateRight: 'Rotate Right',
+    resetRotation: 'Reset Rotation',
+    loadImgError: 'Failed to Load Image',
+    close: 'Close',
+    removeAll: 'Remove All',
+    cancelAll: 'Cancel All',
+    pauseAll: 'Pause All',
+    uploadAll: 'Upload All',
+  }
+};
