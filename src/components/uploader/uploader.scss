@@ -1,0 +1,216 @@
+.file-uploader {
+  *{
+    box-sizing: border-box;
+  }
+
+  .upload-area {
+    display: inline-block;
+    vertical-align: middle;
+    //min-width: 200px;
+    border: 2px dashed #b883f1;
+    //border: 2px dashed #6a11cb;
+    border-radius: 8px;
+    text-align: center;
+    //margin: 20px;
+    transition: all 0.3s;
+    background: #f8f9ff;
+    cursor: pointer;
+    position: relative;
+    &:not(.is-disabled):hover,
+    &:not(.is-disabled).dragover{
+      border-color: #6a11cb;
+      background: #eef2ff;
+      .upload-dragger{
+        color: #333;
+      }
+      .upload-icon {
+        color: #6a11cb;
+      }
+    }
+    &.is-disabled {
+      cursor: not-allowed;
+      border-color: #dac4f1;
+      background: #f6f7f7;
+      .upload-dragger{
+       color: #bbbaba;
+      }
+      .upload-icon {
+        color: #dac4f1;
+      }
+    }
+  }
+
+  .upload-dragger{
+    padding: 30px 40px;
+    color: #888787;
+  }
+
+  .upload-icon {
+    line-height: 1;
+    font-size: 68px;
+    color:#b883f1;
+    //margin-bottom: 5px;
+    transition: color 0.25s;
+  }
+
+  .upload-text {
+    margin-bottom: 5px;
+    margin-top: 0;
+  }
+
+
+  .file-input {
+    position: absolute;
+    top: -1px;
+    width: 1px;
+    height: 1px;
+  }
+
+  .upload-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+    margin-top: 20px;
+    background: #f8f9ff;
+  }
+
+  .left-actions, .right-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .action-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .cancel-btn {
+    background: #ffebee;
+    color: #f44336;
+    border: 1px solid #ffcdd2;
+  }
+
+  .cancel-btn:hover {
+    background: #ffcdd2;
+  }
+
+  .upload-all-btn {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    color: white;
+    border: none;
+  }
+
+  .upload-all-btn:hover {
+    box-shadow: 0 3px 10px rgba(106, 17, 203, 0.3);
+  }
+
+  .remove-all-btn {
+    background: #fff3e0;
+    color: #f57c00;
+    border: 1px solid #ffe0b2;
+  }
+
+  .remove-all-btn:hover {
+    background: #ffe0b2;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    margin-left: 8px;
+  }
+
+  .status-pending {
+    background: #f5f5f5;
+    color: #757575;
+  }
+
+  .status-uploading {
+    background: #e3f2fd;
+    color: #1976d2;
+  }
+
+  .status-completed {
+    background: #e8f5e9;
+    color: #388e3c;
+  }
+
+  .status-error {
+    background: #ffebee;
+    color: #d32f2f;
+  }
+
+  .status-paused {
+    background: #fff3e0;
+    color: #f57c00;
+  }
+
+  .status-checking {
+    background: #fff8e1;
+    color: #ffa000;
+  }
+
+  @media (max-width: 600px) {
+    .upload-dragger {
+      padding: 25px 15px;
+    }
+
+    .file-details {
+      flex-direction: column;
+    }
+
+    .file-size {
+      margin-right: 0;
+      margin-bottom: 5px;
+    }
+
+    .upload-actions {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .left-actions, .right-actions {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+
+  /* 批次控制样式 */
+  .batch-input {
+    width: 60px;
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .batch-input:focus {
+    border-color: #6a11cb;
+    outline: none;
+  }
+
+
+  .svg-icon{
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 0;
+    font-style: normal;
+  }
+}
+
+
+

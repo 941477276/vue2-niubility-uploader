@@ -1,0 +1,204 @@
+body{
+  padding: 0;
+  margin: 0;
+}
+*{
+  box-sizing: border-box;
+}
+a{
+  text-decoration: none;
+}
+.app-header{
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  //flex-wrap: wrap;
+  align-items: center;
+  padding: 6px 15px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  h1{
+    padding: 0;
+    margin: 0;
+    span{
+      display: inline-block;
+      vertical-align: 2px;
+      //font-weight: normal;
+      margin-left: 6px;
+      font-size: 18px;
+      color: #333;
+    }
+    /*small{
+      margin-left: 5px;
+      color: #999;
+      font-size: 12px;
+      font-weight: normal;
+    }*/
+  }
+  .logo-img{
+    display: inline-block;
+    height: 32px;
+  }
+  nav{
+    margin-left: 30px;
+  }
+  .menu-list{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: auto;
+    font-size: 14px;
+  }
+  .menu-item{
+    border-radius: 8px;
+    margin-right: 15px;
+    transition: all .2s;
+    cursor: pointer;
+    a{
+      display: block;
+      padding: 6px 16px;
+      color: #000;
+    }
+    &.is-active,
+    &:hover{
+      color: #b883f1;
+      background-color: #e6ebff;
+      a{
+        color: #b883f1;
+      }
+    }
+
+  }
+
+  .header-right{
+    margin-left: auto;
+  }
+  .language-trigger{
+    position: relative;
+    display: inline-block;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    cursor: pointer;
+    button{
+      line-height: 1;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      cursor: pointer;
+      transition: color .1s;
+    }
+    .bottom-arrow{
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-top: 1px solid currentColor;
+      border-left: 1px solid currentColor;
+      transform: rotate(225deg) translateY(3px);
+      margin-left: 5px;
+    }
+    &:hover{
+      button{
+        color: #b883f1;
+      }
+      .language-list{
+        display: block;
+      }
+    }
+  }
+  .language-list{
+    display: none;
+    position: absolute;
+    top: 26px;
+    right: 0;
+    padding: 4px;
+    margin: 0;
+    border-radius: 6px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.15);
+    background-color: #fff;
+    list-style: none;
+    font-size: 14px;
+    li{
+      padding: 4px 8px;
+      margin: 0;
+      border-radius: 2px;
+      transition: all .2s;
+      white-space: nowrap;
+      &:hover{
+        color: #b883f1;
+        background-color: #eee;
+      }
+      &.is-active{
+        color: #b883f1;
+      }
+    }
+  }
+  .github-button{
+    display: inline-block;
+    vertical-align: middle;
+    padding: 4px 6px;
+    border: none;
+    margin-left: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #000;
+    background-color: #fff;
+    &:hover{
+      color: #b883f1;
+    }
+    small{
+      margin-left: 5px;
+      color: #666;
+      font-size: 12px;
+      font-weight: normal;
+    }
+  }
+}
+/*.app-aside{
+  position: fixed;
+  z-index: 10;
+  top: 58px;
+  left: 0;
+  bottom: 0;
+  width: 200px;
+  border-right: 1px solid #cecece;
+  box-shadow: 2px 0 4px rgba(0,0,0,0.12);
+  background: #fff;
+  .menu-list{
+    padding: 10px;
+    margin: 0;
+    list-style: none;
+    overflow: auto;
+    font-size: 14px;
+  }
+  .menu-item{
+
+    border-radius: 8px;
+    transition: all .2s;
+    cursor: pointer;
+    a{
+      display: block;
+      padding: 10px 16px;
+      color: #000;
+    }
+    &.is-active,
+    &:hover{
+      color: #b883f1;
+      background-color: #e6ebff;
+      a{
+        color: #b883f1;
+      }
+    }
+
+  }
+}*/
+
+
+.page-main{
+  //margin-left: 200px;
+  //max-width: 1200px;
+  padding: 20px;
+  //margin: 0 auto;
+}

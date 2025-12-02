@@ -1,0 +1,120 @@
+.demo-box{
+  border: 1px solid #eee;
+  transition: all .2s;
+  &:hover{
+    box-shadow: 0 0 0.5rem 0 rgba(0,0,0,0.1);
+  }
+  .bs-tabs{
+    margin: 0 1rem;
+  }
+}
+.demo-box-header{
+  display: flex;
+  padding: 1rem;
+}
+.demo-title{
+  margin: 0;
+  font-size: 1.2rem;
+}
+code{
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #764ba2;
+  background-color: #ebebeb;
+}
+button{
+  padding: 2px 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #fff;
+  line-height: 1;
+  color: #666;
+  transition: color .2s;
+  &:hover{
+    color: #b883f1;
+  }
+}
+.demo-operate-area{
+  margin-left: auto;
+  //margin-bottom: 1rem;
+  text-align: right;
+
+  .code-icon{
+    position: relative;
+    font-size: 16px;
+    line-height: 0;
+    &::after{
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 1px;
+      height: 90%;
+      content: ' ';
+      opacity: 0;
+      transform: rotate(15deg);
+      background-color: currentColor;
+      transition: opacity .2s;
+    }
+  }
+  button:hover,
+  .example-code-expanded{
+    .code-icon{
+      &::after{
+        opacity: 1;
+      }
+    }
+  }
+}
+.demo-description{
+  padding: 0 1rem 0 2.5rem;
+  margin-bottom: 10px;
+  font-size: 0.875rem;
+  word-break: break-all;
+  color: #363636;
+  /*p{
+    margin-bottom: 0.5rem;
+  }*/
+}
+.demo-example{
+  padding: 1rem 1rem 1rem 2.5rem;
+  padding-top: 0;
+}
+.demo-example-code{
+  position: relative;
+  padding: 1rem;
+  border-top: 1px solid #eee;
+  pre{
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    overflow: auto;
+    //background-color: #F6F8FA;
+  }
+}
+.shrink-code-operate{
+  position: sticky;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 6px 0;
+  border: 1px dashed #ccc;
+  transition: border-color .2s;
+  text-align: center;
+  background-color: #fff;
+  .code-icon {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+  }
+  button{
+    font-size: 14px;
+  }
+  &:hover{
+    border-color: #b883f1;
+  }
+  .bs-icon-chevron-up{
+    vertical-align: 0.1rem;
+    margin-right: 0.25rem;
+  }
+}

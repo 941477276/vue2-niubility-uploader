@@ -1,0 +1,38 @@
+.demo{
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+pre {
+  display: inline-block;
+  vertical-align: top;
+}
+code{
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: #eee;
+  margin-bottom: 8px;
+  color: #764ba2;
+}
+
+.custom-tabs{
+  display: flex;
+  padding: 0;
+  border-bottom: 1px solid #a0a0a0;
+  margin: 0 0 20px 0;
+  list-style: none;
+}
+.custom-tab-item{
+  padding: 10px;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  &:hover,
+  &.is-active {
+    color: #b883f1;
+    border-bottom-color: #b883f1;
+  }
+}

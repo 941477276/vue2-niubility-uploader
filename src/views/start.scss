@@ -1,0 +1,21 @@
+.start{
+  max-width: 1200px;
+  margin: auto;
+}
+.code{
+  display: inline-block;
+}
+dl{
+  margin-left: 30px;
+  dt{
+    font-weight: bold;
+  }
+  dd{
+    padding: 0;
+    margin-left: 0;
+  }
+}
+pre{
+  max-height: 600px;
+  overflow: auto;
+}

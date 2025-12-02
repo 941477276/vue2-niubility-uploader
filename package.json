@@ -1,0 +1,58 @@
+{
+  "name": "vue2-niubility-uploader",
+  "version": "0.1.0",
+  "description": "一个超好用的轻量的vue2上传组件，支持单/多文件上传、大文件分片上传、断点续传、上传队列控制、文件预览。A lightweight and easy-to-use Vue2 upload component, supporting single/multiple file uploads, large file chunking, resumable uploads, upload queue control, and file preview.",
+  "private": false,
+  "main": "lib/index.js",
+  "keywords": [
+    "uploader",
+    "vue uploader",
+    "chunk uploader"
+  ],
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "build-lib:umd": "webpack --config webpack.umd.prod.js",
+    "build-lib:commonjs": "webpack --config webpack.commonjs.prod.js && webpack --config webpack.commonjs.lang.prod.js",
+    "lint": "vue-cli-service lint"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.28.5",
+    "@babel/runtime": "^7.28.4",
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
+    "@vue/cli-plugin-babel": "~4.5.15",
+    "@vue/cli-plugin-eslint": "~4.5.15",
+    "@vue/cli-plugin-router": "~4.5.15",
+    "@vue/cli-plugin-typescript": "~4.5.15",
+    "@vue/cli-service": "~4.5.15",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "core-js": "^3.46.0",
+    "deepmerge": "^4.3.1",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "mini-css-extract-plugin": "^1.6.0",
+    "prismjs": "^1.30.0",
+    "prismjs-themes": "^2.0.0",
+    "raw-loader": "^4.0.2",
+    "sass": "^1.93.3",
+    "sass-loader": "^8.0.2",
+    "typescript": "~4.1.5",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "vue": "^2.6.11",
+    "vue-cropperjs": "^2.2.2",
+    "vue-router": "^3.2.0",
+    "vue-template-compiler": "^2.6.11",
+    "webpack-cli": "^4.7.2",
+    "vue-i18n": "^8.28.2"
+  },
+  "dependencies": {
+
+  },
+  "files": [
+    "lib",
+    "package.json",
+    "README.md",
+    "README_CN.md"
+  ]
+}

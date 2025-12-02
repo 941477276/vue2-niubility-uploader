@@ -1,0 +1,705 @@
+<template>
+  <div class="demo">
+    <div class="mb-20">
+      <demo-box
+        :title="$t('demo.nodejsDemo.title')"
+        :show-code-expand-button="false"
+        :copy-content="nodejsDemoTab == 'serverjs' ? serverjsCode : packageJsonCode">
+        <template #description>
+          {{ $t('demo.nodejsDemo.description') }}
+        </template>
+      <ul class="custom-tabs">
+        <li
+          class="custom-tab-item"
+          :class="{ 'is-active': nodejsDemoTab == 'serverjs' }"
+          @click="nodejsDemoTab = 'serverjs'">{{ $t('demo.nodejsDemo.serverJs') }}</li>
+        <li
+          class="custom-tab-item"
+          :class="{ 'is-active': nodejsDemoTab == 'packageJson' }"
+          @click="nodejsDemoTab = 'packageJson'">{{ $t('demo.nodejsDemo.packageJson') }}</li>
+      </ul>
+      <pre
+        v-show="nodejsDemoTab == 'serverjs'"
+        style="max-height: 400px;width: 100%;max-width: 100%;overflow: auto;"
+        ref="serverjsRef"
+        class="language-js">{{ serverjsCode }}</pre>
+      <pre
+        v-show="nodejsDemoTab == 'packageJson'"
+        style="max-height: 400px;width: 100%;max-width: 100%;overflow: auto;"
+        ref="packageJsonRef"
+        class="language-json">{{ packageJsonCode }}</pre>
+      </demo-box>
+    </div>
+    <div class="mb-20">
+      <demo-box
+  :title="$t('demo.basicUsage.title')"
+        file-name="Basic">
+        <template #description>
+          <div v-html="$t('demo.basicUsage.description')"></div>
+          <pre class="language-typescript">
+            interface RequestConfig {
+              url: string; // {{ $t('demo.basicUsage.interface.url') }}
+              method: 'POST', // {{ $t('demo.basicUsage.interface.method') }}
+              data: Object | FormData; // {{ $t('demo.basicUsage.interface.data') }}
+            }
+          </pre>
+        </template>
+        <Basic></Basic>
+      </demo-box>
+    </div>
+
+    <div class="mb-20">
+      <demo-box
+        :title="$t('demo.uploadAvatar.title')"
+        file-name="UploadAvatar">
+        <template #description>
+          <div v-html="$t('demo.uploadAvatar.description')"></div>
+        </template>
+        <UploadAvatar></UploadAvatar>
+      </demo-box>
+    </div>
+
+    <div class="mb-20">
+      <demo-box
+        :title="$t('demo.pictureCard.title')"
+        file-name="PictureCard">
+        <template #description>
+          <div v-html="$t('demo.pictureCard.description')"></div>
+        </template>
+        <PictureCard></PictureCard>
+      </demo-box>
+    </div>
+
+    <div class="mb-20">
+      <demo-box
+        file-name="AcceptLimitMaxsize">
+        <template #title>
+          <span v-html="$t('demo.conditionLimits.title')"></span>
+          <small style="color: #666;">(limit="3"、accept="image/*,.txt,.tar.gz,.js,.mp4"、maxSize="2M")</small>
+        </template>
+        <template #description>
+          <div v-html="$t('demo.conditionLimits.description')"></div>
+        </template>
+        <AcceptLimitMaxsize></AcceptLimitMaxsize>
+      </demo-box>
+    </div>
+
+    <div class="mb-20">
+      <demo-box
+        :title="$t('demo.customFileListBtns.title')"
+        file-name="CustomFileItemUploadBtn">
+        <template #description>
+          <p v-html="$t('demo.customFileListBtns.description.fileItem')"></p>
+          <p v-html="$t('demo.customFileListBtns.description.filePreview')"></p>
+          <p v-html="$t('demo.customFileListBtns.description.uploadProgress')"></p>
+          <p v-html="$t('demo.customFileListBtns.description.uploadBtn')"></p>
+          <p v-html="$t('demo.customFileListBtns.description.pauseBtn')"></p>
+          <p v-html="$t('demo.customFileListBtns.description.cancelBtn')"></p>
+          <p v-html="$t('demo.customFileListBtns.description.removeBtn')"></p>
+
+        </template>
+        <CustomFileItemUploadBtn></CustomFileItemUploadBtn>
+      </demo-box>
+    </div>
+
+    <div class="mb-20">
+      <demo-box
+        :title="$t('demo.beforeRemoveFile.title')"
+        file-name="BeforeRemoveFile">
+        <template #description>
+          <div v-html="$t('demo.beforeRemoveFile.description')"></div>
+        </template>
+        <BeforeRemoveFile></BeforeRemoveFile>
+      </demo-box>
+    </div>
+
+    <div class="mb-20">
+      <demo-box
+        :title="$t('demo.chunkUpload.title')"
+        file-name="ChunkUpload">
+        <template #description>
+          <div v-html="$t('demo.chunkUpload.description.intro')"></div>
+            <dl>
+              <dt><strong>{{ $t('demo.chunkUpload.note.title') }}</strong></dt>
+              <dd v-html="$t('demo.chunkUpload.note.content')" style="color: #666;">
+
+              </dd>
+            </dl>
+        </template>
+        <ChunkUpload></ChunkUpload>
+      </demo-box>
+    </div>
+
+    <div class="mb-20">
+      <demo-box
+        :title="$t('demo.autoUpload.title')"
+        file-name="AutoUpload">
+        <template #description>
+          <div v-html="$t('demo.autoUpload.description')"></div>
+        </template>
+        <AutoUpload></AutoUpload>
+      </demo-box>
+    </div>
+
+    <div class="mb-20">
+      <demo-box
+        :title="$t('demo.manualAddFile.title')"
+        file-name="ManualAddFile">
+        <template #description>
+          <div v-html="$t('demo.manualAddFile.description')"></div>
+          <pre class="language-typescript">
+            interface AddFileParams {
+              name: string; // {{ $t('demo.manualAddFile.interface.name') }}
+              file: File | Blob | Base64String; // {{ $t('demo.manualAddFile.interface.file') }}
+              previewUrl?: string; // {{ $t('demo.manualAddFile.interface.previewUrl') }}
+              type: string; // {{ $t('demo.manualAddFile.interface.type') }}
+            }
+          </pre>
+        </template>
+        <ManualAddFile></ManualAddFile>
+      </demo-box>
+    </div>
+
+    <div class="mb-20">
+      <demo-box
+        :title="$t('demo.editImage.title')"
+        file-name="DemoEditImage">
+        <template #description>
+          {{ $t('demo.editImage.description') }}
+          <ol>
+            <li v-html="$t('demo.editImage.step1')"></li>
+            <li v-html="$t('demo.editImage.step2')"></li>
+          </ol>
+          <p>{{ $t('demo.editImage.addFileParams') }}</p>
+          <pre style="margin-top: 0;" class="language-typescript">
+            interface AddFileParams {
+              name: string; // {{ $t('demo.manualAddFile.interface.name') }}
+              file: File | Blob | Base64String; // {{ $t('demo.manualAddFile.interface.file') }}
+              previewUrl?: string; // {{ $t('demo.manualAddFile.interface.previewUrl') }}
+              type: string; // {{ $t('demo.manualAddFile.interface.type') }}
+            }
+          </pre>
+        </template>
+        <DemoEditImage></DemoEditImage>
+      </demo-box>
+    </div>
+
+    <div class="mb-20">
+      <demo-box
+        :title="$t('demo.defaultFileList.title')"
+        file-name="DefaultFileList">
+        <template #description>
+          <div v-html="$t('demo.defaultFileList.description')"></div>
+          <br>
+          <pre style="margin-top: 0;" class="language-typescript">
+            interface DefaultFileItem {
+              id: string; // {{ $t('demo.defaultFileList.interface.id') }}
+              name: string?; // {{ $t('demo.defaultFileList.interface.name') }}
+              previewUrl?: // {{ $t('demo.defaultFileList.interface.previewUrl') }}
+            }
+          </pre>
+        </template>
+        <DefaultFileList></DefaultFileList>
+      </demo-box>
+    </div>
+
+    <div class="mb-20">
+      <demo-box
+        :title="$t('demo.simpleStyle.title')"
+        file-name="SimpleStyle">
+        <template #description>
+         <div v-html="$t('demo.simpleStyle.description')"></div>
+        </template>
+        <SimpleStyle></SimpleStyle>
+      </demo-box>
+    </div>
+
+    <div class="mb-20">
+      <demo-box
+        :title="$t('demo.breakpointResume.title')"
+        file-name="BreakpointResume">
+        <template #description>
+          <div>{{ $t('demo.breakpointResume.description.intro') }}</div>
+          <dl>
+            <dt style="margin-bottom: 5px;">{{ $t('demo.breakpointResume.description.solution') }}</dt>
+            <dd>
+              <ol>
+                <li>
+                  <div v-html="$t('demo.breakpointResume.description.step1')"></div>
+                </li>
+                <li>
+                  <div v-html="$t('demo.breakpointResume.description.step2')"></div>
+                </li>
+                <li>
+                  <div v-html="$t('demo.breakpointResume.description.step3')"></div>
+                </li>
+                <li>
+                  <div v-html="$t('demo.breakpointResume.description.step4')"></div>
+                </li>
+                <li>
+                  <div v-html="$t('demo.breakpointResume.description.step5')"></div>
+                </li>
+                <li>
+                  <div v-html="$t('demo.breakpointResume.description.step6')"></div>
+                </li>
+              </ol>
+            </dd>
+          </dl>
+          <dl>
+            <dt style="margin-bottom: 5px;">{{ $t('demo.breakpointResume.uploadedIndexes') }}</dt>
+            <dd>
+            <textarea
+              style="width: 100%;max-width: 600px;"
+              v-model="uploadedChunkIndexes"
+              rows="10"
+              :placeholder="$t('demo.breakpointResume.placeholder')"></textarea>
+            </dd>
+          </dl>
+        </template>
+        <BreakpointResume></BreakpointResume>
+      </demo-box>
+    </div>
+
+  </div>
+</template>
+
+<script>
+// import FileUploader from '@/components/FileUploader.vue';
+// import DeepseekFileUploader from '@/components/uploader/FileUploader.vue';
+import DemoEditImage from '@/views/usage-demos/DemoEditImage.vue';
+import UploadAvatar from '@/views/usage-demos/UploadAvatar.vue';
+import Basic from '@/views/usage-demos/Basic.vue';
+import PictureCard from '@/views/usage-demos/PictureCard.vue';
+import AcceptLimitMaxsize from '@/views/usage-demos/AcceptLimitMaxsize.vue';
+import CustomFileItemUploadBtn from '@/views/usage-demos/CustomFileItemUploadBtn.vue';
+import BeforeRemoveFile from '@/views/usage-demos/BeforeRemoveFile.vue';
+import ChunkUpload from '@/views/usage-demos/ChunkUpload.vue';
+import AutoUpload from '@/views/usage-demos/AutoUpload.vue';
+import ManualAddFile from '@/views/usage-demos/ManualAddFile.vue';
+import DefaultFileList from '@/views/usage-demos/DefaultFileList.vue';
+import SimpleStyle from '@/views/usage-demos/SimpleStyle.vue';
+import BreakpointResume from '@/views/usage-demos/BreakpointResume.vue';
+import prism from 'prismjs';
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-typescript';
+// 导入代码高亮插件css
+import 'prismjs-themes/dist/midnight.min.css';
+
+const testImgBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAxRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MkY0NzIyMUU3QjEzMTFFRkJBMERGMzUxN0VFODlCODIiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MkY0NzIyMUQ3QjEzMTFFRkJBMERGMzUxN0VFODlCODIiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgV2luZG93cyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSI2MEI2MkFFNjNDMEI5MTI4QUNBQTEzRjc3RTdFMjc5MyIgc3RSZWY6ZG9jdW1lbnRJRD0iNjBCNjJBRTYzQzBCOTEyOEFDQUExM0Y3N0U3RTI3OTMiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4WpwNEAAADAFBMVEVNQjoUDAZzaWU0KiSZlpTIqpba2dds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';
+const testByteArr = '[137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,128,0,0,0,128,8,3,0,0,0,244,224,145,249,0,0,0,25,116,69,88,116,83,111,102,116,119,97,114,101,0,65,100,111,98,101,32,73,109,97,103,101,82,101,97,100,121,113,201,101,60,0,0,3,20,105,84,88,116,88,77,76,58,99,111,109,46,97,100,111,98,101,46,120,109,112,0,0,0,0,0,60,63,120,112,97,99,107,101,116,32,98,101,103,105,110,61,34,239,187,191,34,32,105,100,61,34,87,53,77,48,77,112,67,101,104,105,72,122,114,101,83,122,78,84,99,122,107,99,57,100,34,63,62,32,60,120,58,120,109,112,109,101,116,97,32,120,109,108,110,115,58,120,61,34,97,100,111,98,101,58,110,115,58,109,101,116,97,47,34,32,120,58,120,109,112,116,107,61,34,65,100,111,98,101,32,88,77,80,32,67,111,114,101,32,53,46,54,45,99,49,51,56,32,55,57,46,49,53,57,56,50,52,44,32,50,48,49,54,47,48,57,47,49,52,45,48,49,58,48,57,58,48,49,32,32,32,32,32,32,32,32,34,62,32,60,114,100,102,58,82,68,70,32,120,109,108,110,115,58,114,100,102,61,34,104,116,116,112,58,47,47,119,119,119,46,119,51,46,111,114,103,47,49,57,57,57,47,48,50,47,50,50,45,114,100,102,45,115,121,110,116,97,120,45,110,115,35,34,62,32,60,114,100,102,58,68,101,115,99,114,105,112,116,105,111,110,32,114,100,102,58,97,98,111,117,116,61,34,34,32,120,109,108,110,115,58,120,109,112,77,77,61,34,104,116,116,112,58,47,47,110,115,46,97,100,111,98,101,46,99,111,109,47,120,97,112,47,49,46,48,47,109,109,47,34,32,120,109,108,110,115,58,115,116,82,101,102,61,34,104,116,116,112,58,47,47,110,115,46,97,100,111,98,101,46,99,111,109,47,120,97,112,47,49,46,48,47,115,84,121,112,101,47,82,101,115,111,117,114,99,101,82,101,102,35,34,32,120,109,108,110,115,58,120,109,112,61,34,104,116,116,112,58,47,47,110,115,46,97,100,111,98,101,46,99,111,109,47,120,97,112,47,49,46,48,47,34,32,120,109,112,77,77,58,68,111,99,117,109,101,110,116,73,68,61,34,120,109,112,46,100,105,100,58,50,70,52,55,50,50,49,69,55,66,49,51,49,49,69,70,66,65,48,68,70,51,53,49,55,69,69,56,57,66,56,50,34,32,120,109,112,77,77,58,73,110,115,116,97,110,99,101,73,68,61,34,120,109,112,46,105,105,100,58,50,70,52,55,50,50,49,68,55,66,49,51,49,49,69,70,66,65,48,68,70,51,53,49,55,69,69,56,57,66,56,50,34,32,120,109,112,58,67,114,101,97,116,111,114,84,111,111,108,61,34,65,100,111,98,101,32,80,104,111,116,111,115,104,111,112,32,67,67,32,50,48,49,55,32,87,105,110,100,111,119,115,34,62,32,60,120,109,112,77,77,58,68,101,114,105,118,101,100,70,114,111,109,32,115,116,82,101,102,58,105,110,115,116,97,110,99,101,73,68,61,34,54,48,66,54,50,65,69,54,51,67,48,66,57,49,50,56,65,67,65,65,49,51,70,55,55,69,55,69,50,55,57,51,34,32,115,116,82,101,102,58,100,111,99,117,109,101,110,116,73,68,61,34,54,48,66,54,50,65,69,54,51,67,48,66,57,49,50,56,65,67,65,65,49,51,70,55,55,69,55,69,50,55,57,51,34,47,62,32,60,47,114,100,102,58,68,101,115,99,114,105,112,116,105,111,110,62,32,60,47,114,100,102,58,82,68,70,62,32,60,47,120,58,120,109,112,109,101,116,97,62,32,60,63,120,112,97,99,107,101,116,32,101,110,100,61,34,114,34,63,62,22,167,3,68,0,0,3,0,80,76,84,69,77,66,58,20,12,6,115,105,101,52,42,36,153,150,148,200,170,150,218,217,215,108,97,93,237,188,165,140,140,139,254,227,210,35,27,19,202,200,198,85,74,66,69,59,52,151,47,41,209,147,132,229,203,184,163,163,163,113,99,92,225,225,225,132,122,118,123,123,123,255,235,212,235,216,199,163,156,154,98,85,74,215,187,168,50,36,27,187,165,151,255,243,219,203,183,167,134,134,134,151,132,118,148,140,138,179,171,168,171,137,116,41,30,26,195,186,184,186,186,186,177,116,103,255,250,228,170,163,163,58,48,41,244,244,244,108,102,97,171,152,136,45,36,33,136,118,104,66,53,43,89,80,73,213,134,124,137,103,86,251,229,205,40,28,20,254,227,205,90,86,82,118,111,106,203,67,83,219,198,181,35,21,11,226,141,134,105,92,83,42,32,21,248,212,189,207,120,113,255,253,244,235,235,234,100,89,82,184,152,137,150,145,143,40,32,25,255,254,234,253,231,233,185,176,173,36,28,24,178,73,79,75,71,66,249,204,182,135,128,124,203,57,74,243,219,204,172,59,63,255,237,217,41,32,28,169,161,157,254,254,250,151,120,100,143,80,73,251,225,202,235,194,172,245,196,171,219,195,172,255,245,225,235,209,187,60,54,49,243,219,195,188,180,178,44,32,23,249,222,203,37,33,27,180,101,90,155,67,56,186,122,123,250,250,249,229,221,215,249,221,198,141,138,133,139,133,130,225,181,158,105,94,89,200,193,190,253,227,203,124,116,112,182,182,181,98,92,87,44,33,28,249,246,243,231,206,195,174,174,172,113,97,86,113,47,48,208,205,202,246,219,215,145,124,113,245,225,203,229,226,221,108,95,86,235,235,230,125,121,117,209,87,98,213,211,208,100,97,92,189,184,181,132,111,99,105,78,65,254,233,207,243,242,237,253,229,203,122,108,95,116,103,94,30,22,16,135,140,139,255,213,192,244,248,244,111,88,70,254,229,215,64,40,26,154,129,109,183,161,142,255,244,235,250,224,207,35,31,20,46,36,29,174,168,165,98,75,64,113,93,86,251,255,249,254,251,253,161,144,128,45,36,26,186,159,145,242,213,194,50,31,19,95,85,80,247,227,211,222,223,221,200,195,170,252,225,197,81,63,51,40,35,30,237,231,228,122,98,81,85,39,37,212,190,177,124,104,85,125,74,64,144,144,142,230,231,229,252,251,249,136,141,132,250,229,203,118,117,114,61,45,36,127,97,86,30,12,2,243,206,211,43,30,31,242,215,201,152,107,93,133,39,28,167,160,160,45,26,11,241,241,241,76,27,25,80,57,45,129,57,59,41,35,24,143,134,135,194,191,190,92,94,89,255,255,255,48,47,42,47,41,32,137,143,143,36,34,13,35,23,23,253,229,205,255,229,205,253,253,253,255,255,252,253,255,255,255,228,207,255,253,253,253,255,253,252,231,207,255,231,208,253,229,207,255,253,255,255,231,205,253,253,255,252,231,205,251,253,253,203,211,203,177,177,174,93,94,95,251,251,251,32,36,23,39,23,18,195,175,160,239,239,238,217,168,153,219,177,175,248,237,223,162,89,92,159,159,155,159,145,145,247,247,247,240,240,234,67,29,27,104,34,34,248,249,247,230,154,163,167,168,163,239,224,204,245,241,227,247,224,200,97,45,51,157,157,157,99,98,87,127,127,126,194,196,193,106,86,90,187,45,62,117,103,87,183,184,179,47,76,89,143,0,0,37,181,73,68,65,84,120,218,236,155,127,92,20,117,254,199,103,24,4,113,152,41,220,16,89,151,159,186,42,141,203,50,107,12,160,27,91,186,186,124,157,86,50,86,13,19,86,183,173,60,53,132,152,148,60,139,12,50,78,24,77,252,181,171,22,107,144,23,243,237,44,236,116,219,219,74,58,219,148,157,92,4,77,237,122,116,223,74,176,187,75,235,219,213,215,51,186,236,251,254,204,130,128,253,242,30,143,239,227,250,231,251,1,113,65,224,253,156,215,251,253,121,255,248,204,136,197,12,172,77,67,94,252,123,222,149,133,245,255,157,218,55,102,76,223,191,243,173,47,117,211,16,128,190,49,109,163,255,205,235,114,234,152,212,171,0,99,218,142,158,239,248,55,175,143,111,90,51,166,175,31,96,204,229,55,59,126,137,85,147,58,70,1,232,187,60,165,227,151,89,81,125,125,0,144,218,119,83,71,71,215,47,67,240,208,161,77,88,76,223,151,191,152,253,142,153,169,125,216,166,190,181,29,93,191,20,64,199,151,99,0,32,234,100,199,47,182,30,26,131,165,166,238,251,229,236,119,76,250,127,0,4,112,211,255,3,92,243,197,41,231,15,172,253,112,77,236,191,144,214,187,254,47,1,222,252,230,155,53,169,31,229,234,82,191,188,222,2,113,242,226,155,93,255,87,0,11,58,206,199,214,172,137,56,214,55,122,205,232,182,209,175,12,51,115,178,3,229,139,225,57,227,166,212,218,194,209,31,78,90,115,120,77,108,212,129,153,231,31,139,138,138,82,88,186,174,55,181,93,11,240,238,43,107,107,34,173,86,67,109,97,95,174,213,126,236,195,47,58,58,186,7,0,194,127,253,169,255,211,101,23,47,194,143,203,56,142,147,54,189,204,107,245,65,198,206,216,173,134,220,136,182,85,80,219,62,86,220,210,253,47,111,195,119,87,125,90,203,208,65,201,37,146,65,61,143,227,214,171,145,112,114,193,127,252,225,15,191,126,165,159,99,102,84,236,232,62,157,129,199,121,158,15,137,202,194,175,46,98,246,195,239,118,127,172,20,152,238,174,127,81,129,154,245,246,160,61,40,57,157,231,92,164,36,59,69,156,255,110,224,159,254,240,247,39,238,184,227,246,63,40,175,247,197,70,26,36,48,37,74,22,139,205,102,209,242,36,207,113,61,61,198,1,132,136,154,142,142,223,236,219,119,224,153,142,5,203,186,254,21,5,166,140,198,156,65,89,146,92,78,39,186,168,115,146,132,139,177,39,103,215,22,94,184,240,151,169,119,126,11,235,137,191,255,186,99,202,55,159,86,58,113,17,46,158,119,218,156,54,173,22,189,2,2,206,136,251,124,97,2,253,174,209,199,142,233,14,141,126,250,95,139,129,238,125,169,65,217,105,19,120,142,71,154,138,100,64,58,135,219,83,173,33,28,255,199,93,223,126,123,231,183,119,78,155,118,231,3,19,199,88,181,184,24,54,235,247,15,216,231,57,135,17,23,141,162,111,128,1,45,49,247,187,41,83,62,190,126,5,206,127,152,23,228,69,39,39,14,44,151,203,105,15,18,118,125,244,182,59,190,253,118,218,93,223,222,249,196,180,59,254,182,59,228,19,121,173,133,231,181,90,173,205,102,3,253,67,36,248,192,196,249,140,70,197,184,111,104,64,232,106,14,236,187,94,5,78,30,213,81,46,81,18,72,220,40,138,188,11,105,224,34,237,214,80,72,204,250,59,216,191,243,219,39,158,184,235,134,71,254,225,51,130,97,100,220,47,248,109,54,63,2,8,145,36,199,137,253,151,30,134,48,26,145,26,56,138,227,125,53,215,171,64,140,61,40,138,193,0,9,246,73,82,116,33,39,0,134,200,135,254,8,23,127,231,183,211,158,184,225,191,127,231,55,114,14,45,90,54,1,45,63,242,0,216,39,33,0,112,35,65,69,100,53,101,54,165,189,234,245,225,70,8,74,17,105,226,252,230,241,243,215,25,3,135,36,249,156,40,91,92,162,17,236,139,174,115,224,196,0,168,41,26,31,153,118,39,172,105,96,191,217,229,114,65,184,113,90,173,98,95,208,242,90,136,151,16,233,112,244,104,212,153,99,119,100,100,100,20,192,159,177,219,183,244,224,70,14,156,133,195,219,154,167,175,83,129,245,78,187,44,158,59,7,198,209,149,187,64,130,227,231,72,80,177,231,126,5,224,174,71,144,125,142,67,122,115,218,176,12,90,222,47,138,28,231,166,169,214,43,41,59,102,20,189,119,230,204,153,186,186,186,146,130,228,148,221,184,207,239,7,132,30,28,255,112,193,245,41,208,22,196,236,120,192,133,0,80,8,30,39,81,16,0,192,231,119,40,2,188,181,181,221,100,114,113,164,130,160,216,71,113,24,18,57,217,139,85,229,171,155,86,39,156,41,46,207,62,115,38,59,59,123,227,198,228,130,162,166,102,220,8,8,33,17,167,106,166,92,151,2,79,98,86,171,120,78,54,185,192,167,40,2,225,143,146,226,126,55,77,177,255,199,102,135,5,174,29,1,112,164,98,159,211,34,22,130,193,234,235,247,100,245,150,158,57,179,179,252,131,15,0,225,204,193,131,229,7,147,51,82,212,70,159,17,8,112,113,246,190,235,82,224,51,29,253,117,64,148,221,30,20,2,224,123,20,206,72,129,127,0,192,180,59,254,200,153,44,46,45,23,94,96,94,64,12,70,147,151,96,233,234,117,245,245,77,251,191,2,179,217,104,157,81,62,30,172,43,41,26,177,167,29,69,35,110,93,10,165,245,207,3,118,134,84,170,107,50,97,100,240,107,230,120,48,192,33,1,194,153,228,56,122,245,143,59,32,3,61,210,99,10,12,49,15,65,8,123,145,227,104,154,101,213,105,105,89,105,73,171,47,21,151,119,118,102,15,174,131,31,20,101,148,236,223,226,195,123,124,61,209,243,223,69,0,208,106,204,156,137,220,209,245,195,181,224,33,217,128,5,105,19,25,86,30,189,67,62,206,165,31,153,54,109,218,91,159,187,206,185,56,83,63,129,223,225,71,0,188,145,53,211,44,85,159,217,180,46,51,101,236,206,141,157,195,0,178,15,30,252,32,161,32,35,211,136,247,24,9,44,29,138,247,218,135,70,183,93,254,240,155,3,23,151,117,253,176,2,53,80,79,105,23,193,154,200,126,15,136,162,76,211,246,183,32,3,124,222,115,206,197,113,67,20,128,197,133,122,12,91,192,254,186,249,153,77,73,227,230,189,215,121,13,0,98,40,47,154,177,221,231,235,233,209,208,137,81,147,102,235,106,35,39,173,141,138,154,57,229,71,20,120,250,107,195,215,180,75,102,228,0,100,129,227,40,23,7,100,168,122,187,159,120,235,143,237,1,4,224,128,55,4,96,129,42,8,1,104,212,84,169,233,151,10,155,146,182,239,77,217,255,252,217,141,223,7,232,220,88,156,144,241,20,222,67,54,19,68,223,229,92,221,55,168,50,44,27,44,145,215,246,3,71,191,238,203,13,138,184,199,110,165,172,68,56,20,113,220,190,240,173,127,52,59,156,72,0,7,202,130,126,45,164,96,88,60,239,195,234,13,84,83,83,102,74,82,239,254,184,71,207,150,103,127,15,0,52,40,46,24,97,244,245,144,26,135,53,47,245,38,104,39,186,134,182,144,215,246,3,167,191,43,44,204,211,89,101,130,209,107,25,171,29,109,68,123,124,77,225,239,182,154,4,37,3,154,128,64,240,251,253,18,252,129,20,72,170,179,168,151,122,51,147,246,131,253,213,63,2,176,113,99,93,242,22,188,7,156,0,141,10,52,125,93,195,218,181,239,15,38,107,191,139,141,141,253,82,103,197,168,248,93,19,199,23,198,143,174,57,25,181,231,136,35,28,126,138,125,40,0,122,120,67,173,16,81,191,65,189,61,101,123,239,254,253,113,191,126,190,36,163,232,189,156,236,239,175,242,242,140,197,237,16,5,61,194,248,126,251,215,110,195,161,10,116,156,238,158,113,32,246,232,156,196,155,87,253,39,124,254,159,107,107,30,127,37,54,90,242,41,233,23,60,224,112,104,4,61,216,23,44,33,62,228,99,179,174,212,79,79,233,221,191,250,181,191,142,109,202,74,122,13,24,78,108,44,207,62,56,124,43,108,252,32,99,155,175,39,212,19,154,173,116,171,223,7,216,55,20,0,181,198,143,199,174,125,108,198,159,126,19,27,89,81,105,176,82,134,92,6,118,195,0,128,160,113,107,128,192,143,154,193,80,107,225,149,180,177,41,251,231,189,150,148,213,218,238,107,111,205,234,45,206,40,40,122,191,63,254,58,149,156,244,232,163,217,69,51,14,178,62,127,79,232,237,238,1,128,174,159,26,76,22,60,211,221,61,35,246,211,66,29,69,51,193,160,210,250,137,60,42,184,138,0,130,98,94,177,47,114,234,180,43,41,69,211,147,182,237,110,247,249,154,53,237,70,95,59,181,174,55,187,160,36,1,52,56,145,147,3,4,103,14,62,90,148,113,166,55,139,229,252,161,158,244,5,29,221,221,195,15,35,126,104,56,133,202,245,221,49,61,46,202,246,220,188,200,241,187,226,115,131,56,73,58,161,231,179,40,0,40,6,252,124,8,8,68,77,67,86,218,234,204,214,118,232,63,154,53,202,2,144,118,106,219,184,228,162,15,178,115,96,65,58,78,46,137,107,2,117,52,26,191,150,139,62,250,74,127,18,252,73,5,58,158,249,125,240,28,108,192,115,152,110,125,225,174,154,116,43,116,41,188,197,162,181,120,60,8,192,129,118,65,24,128,141,207,202,124,126,239,45,123,118,31,105,54,250,124,198,246,230,102,133,1,111,222,178,56,185,19,20,200,206,174,219,152,242,146,215,104,108,135,175,11,126,11,77,175,249,44,118,237,197,159,29,207,223,9,6,101,171,46,117,125,68,68,97,69,222,74,74,20,157,78,103,192,102,17,60,14,15,120,0,37,128,16,52,97,224,131,214,117,235,122,147,119,52,206,123,237,181,148,204,180,170,86,111,123,63,70,59,190,46,227,253,78,0,72,40,218,214,14,95,105,135,248,32,52,130,86,118,218,63,253,114,244,99,127,30,82,146,126,72,129,135,114,173,31,125,185,239,153,147,143,175,233,139,200,43,204,117,242,82,64,8,132,151,163,89,35,56,93,188,210,49,67,31,76,197,55,173,46,106,92,189,250,222,162,140,130,146,228,37,211,147,154,178,242,143,52,131,27,240,13,37,27,81,8,38,36,60,229,3,42,227,214,214,86,143,27,186,39,9,63,246,221,209,199,166,44,64,19,211,159,63,238,250,97,5,14,244,125,244,206,1,101,0,250,226,177,47,43,115,115,101,0,8,72,97,0,65,35,112,225,74,45,186,160,27,81,167,109,255,170,177,241,181,231,94,219,9,5,184,40,249,249,175,198,142,29,187,250,183,153,89,91,182,102,53,102,35,128,179,103,111,217,186,123,67,230,136,253,37,77,62,129,227,73,139,40,166,126,243,228,119,71,107,102,46,248,81,5,62,254,176,47,242,233,142,5,11,186,17,229,111,102,91,97,76,234,183,30,8,88,60,2,52,64,56,18,64,116,6,180,154,234,180,148,157,59,193,3,243,118,118,150,39,44,73,217,94,184,161,190,169,119,108,70,114,121,105,220,11,168,51,232,76,40,77,26,183,115,71,65,65,65,119,166,175,135,135,62,70,194,173,58,58,104,63,86,56,233,241,238,5,11,126,80,129,125,163,47,63,6,246,187,96,195,116,119,124,182,50,15,131,57,109,0,32,224,113,240,74,151,137,147,188,36,8,76,85,83,220,206,198,81,247,222,123,239,206,242,179,165,251,155,234,215,173,88,81,209,208,20,247,222,251,117,239,43,0,239,95,26,87,154,252,218,136,237,41,99,11,122,141,70,104,30,72,72,223,231,236,208,119,81,186,209,251,62,235,254,33,5,78,174,93,83,179,236,227,211,202,54,233,238,120,37,190,178,146,225,175,42,0,26,132,91,5,145,116,234,245,2,125,101,254,188,157,163,26,71,21,23,23,159,88,18,215,180,97,233,255,116,119,63,62,39,47,179,180,188,188,188,184,51,167,188,252,68,220,226,132,113,27,246,108,216,208,148,240,60,139,163,58,202,139,124,97,212,129,199,162,38,125,186,226,203,168,207,126,72,129,41,53,177,231,135,36,138,68,67,101,208,117,21,64,10,244,219,23,121,0,176,181,110,232,253,234,222,81,103,79,157,202,46,46,126,191,247,165,95,45,232,126,28,26,175,73,121,211,55,22,67,115,90,14,31,22,63,87,186,97,225,216,29,171,174,236,63,185,14,135,74,222,67,74,134,26,116,101,221,203,162,190,124,232,177,41,63,160,192,204,168,153,67,247,105,108,101,173,60,68,1,75,127,199,14,67,41,40,64,101,165,60,191,115,212,40,168,64,229,39,150,44,92,253,238,43,179,157,246,163,29,221,233,153,201,8,160,184,248,82,206,226,210,189,183,252,170,227,87,221,171,210,10,166,55,27,1,160,199,94,249,100,212,210,181,175,128,123,247,77,218,55,243,227,239,41,208,117,96,230,197,161,153,114,217,138,50,39,239,28,216,4,1,30,217,7,128,115,78,63,196,192,238,180,184,198,157,96,31,174,54,97,220,194,113,251,210,81,214,190,169,35,118,219,193,242,226,242,226,75,203,151,231,76,95,188,55,173,227,2,142,61,150,150,50,3,195,145,2,22,195,164,79,199,172,189,8,59,224,226,190,3,111,126,209,49,169,111,184,2,93,111,46,27,158,20,14,7,69,167,4,253,15,48,216,108,138,0,78,94,12,57,37,73,111,211,168,155,198,190,7,10,148,3,192,198,229,139,51,211,212,50,180,208,241,231,107,210,158,171,131,40,88,190,124,73,113,233,226,164,204,135,1,75,221,52,189,99,3,142,162,144,52,36,234,102,71,221,4,125,209,197,3,51,161,49,250,158,11,166,12,189,254,139,107,47,91,113,167,100,131,113,196,18,112,194,24,8,25,208,105,131,64,146,36,201,109,115,63,181,247,222,157,59,79,141,66,241,94,254,126,114,221,242,37,75,82,50,179,234,11,27,182,125,144,176,17,133,0,16,140,27,215,187,151,102,179,146,190,42,202,216,207,25,161,155,32,104,107,222,205,15,29,64,191,124,230,249,147,63,16,3,95,12,78,243,251,46,31,11,186,224,250,37,139,201,100,66,0,126,152,131,121,155,196,163,15,146,91,112,80,73,163,118,22,143,82,0,160,235,232,76,72,40,74,46,201,56,179,186,119,113,2,114,65,249,137,19,229,239,199,165,236,79,42,173,75,46,170,235,76,72,86,131,15,52,4,137,197,23,30,125,22,242,205,211,231,223,60,249,83,7,149,231,71,27,36,212,148,59,3,130,37,96,178,40,0,232,40,194,38,193,71,164,128,32,31,201,108,28,149,51,42,39,220,5,65,59,86,126,105,249,165,75,165,211,75,15,194,190,44,190,84,156,115,226,236,137,226,113,165,207,149,222,182,252,182,229,197,57,5,219,125,36,167,209,120,104,42,17,58,179,174,101,79,191,249,244,79,157,148,206,124,199,46,157,19,143,31,55,217,44,14,84,9,20,0,104,67,181,146,100,67,2,128,11,24,111,83,227,40,68,16,238,123,178,115,138,47,45,137,91,60,110,241,146,226,229,151,114,202,151,95,2,81,114,144,35,226,22,47,42,125,174,56,59,249,209,35,56,212,50,50,148,7,251,255,52,0,92,252,226,39,0,62,30,109,13,6,157,188,235,184,82,128,29,104,7,56,109,136,192,6,209,135,0,4,65,98,136,109,141,141,87,21,64,153,183,120,73,105,233,146,141,16,126,103,159,43,45,238,255,26,56,167,248,133,75,151,160,63,47,72,131,17,201,168,93,255,155,142,211,39,79,190,251,202,178,101,207,254,4,64,84,173,157,134,253,103,50,13,2,72,0,224,180,217,36,212,144,59,37,65,146,100,111,218,243,67,1,58,207,230,148,159,120,63,7,174,185,40,110,194,226,132,129,254,184,184,184,243,196,217,247,59,203,139,11,198,181,51,6,213,248,110,184,252,147,39,187,158,85,236,255,40,192,67,86,58,200,59,5,4,32,52,15,2,216,32,1,41,0,182,48,192,189,141,167,250,1,202,81,3,148,115,2,2,175,188,252,108,194,132,17,69,117,217,87,1,18,206,162,56,221,152,188,156,197,98,223,133,60,120,250,52,2,120,246,221,159,0,184,184,201,106,117,57,37,183,195,209,236,104,190,86,1,167,77,171,0,4,188,105,243,0,224,148,2,144,115,117,149,23,39,111,223,86,146,208,89,14,197,0,217,45,26,145,146,156,163,236,212,146,87,137,181,208,111,61,243,179,0,203,126,115,96,189,213,206,59,37,79,0,186,112,212,8,6,76,38,80,29,141,195,240,193,6,127,89,164,128,228,244,54,205,107,60,11,0,48,19,119,14,177,159,80,58,33,51,163,100,84,81,65,70,81,118,249,193,236,140,231,182,149,38,160,210,84,94,208,228,93,245,167,5,207,60,131,106,94,215,179,93,63,222,19,30,248,236,191,242,172,178,40,185,61,30,212,133,105,28,224,10,147,13,134,1,91,255,201,16,0,4,60,146,203,187,253,215,103,223,3,128,225,43,161,116,196,146,189,153,113,141,113,179,70,204,43,202,41,79,126,46,110,225,136,18,5,173,36,201,176,10,122,238,211,63,7,112,190,102,237,232,60,171,158,151,100,61,40,224,240,52,123,28,144,136,250,143,196,250,1,80,38,114,113,105,243,16,192,112,130,179,9,35,198,101,52,238,157,213,56,193,248,249,145,17,59,74,146,124,175,47,30,113,176,238,84,206,169,141,201,35,254,25,251,167,235,0,136,189,121,116,204,71,6,153,215,51,122,52,9,52,163,94,216,228,8,12,3,128,16,112,123,68,44,46,225,236,53,0,167,18,74,83,146,11,10,102,236,216,241,235,184,253,123,227,102,20,140,216,118,102,198,226,197,69,240,47,157,201,123,255,121,61,10,156,191,28,179,235,144,193,42,59,37,70,207,43,251,208,209,63,15,216,6,14,7,181,176,31,4,65,79,106,122,147,71,189,55,8,128,2,33,161,32,101,68,220,172,180,166,191,36,101,238,205,76,218,219,187,127,113,233,107,163,198,37,37,67,147,94,87,148,214,50,241,221,238,159,3,56,185,182,47,50,213,74,219,245,0,128,142,100,6,237,107,195,7,51,202,43,63,76,167,130,69,92,87,212,120,234,212,123,87,1,58,115,234,74,70,236,222,186,181,221,215,236,213,52,27,161,29,54,54,55,127,126,164,117,107,107,105,70,249,137,132,179,245,216,210,238,159,5,232,184,156,151,71,43,71,246,65,194,162,29,176,239,176,216,174,1,240,11,122,9,151,83,118,40,213,96,128,224,108,65,82,187,50,25,112,70,81,52,177,173,173,205,62,116,128,108,244,61,149,156,156,83,244,168,218,190,171,163,123,193,207,0,220,244,81,46,45,73,144,135,165,160,155,231,6,60,96,82,108,95,5,240,163,37,72,78,156,154,87,50,52,2,10,226,154,125,26,183,59,96,52,177,212,194,204,17,99,223,43,77,89,184,213,183,181,249,115,124,219,140,132,228,233,180,62,17,242,64,215,79,3,108,178,91,165,115,18,186,105,160,231,45,218,48,128,105,224,108,86,171,117,12,2,248,245,18,233,91,151,145,48,152,2,10,160,245,212,200,50,233,99,55,76,152,245,247,7,238,155,252,201,220,7,247,206,106,109,223,218,108,108,79,153,145,145,196,138,133,51,251,29,253,99,0,39,107,12,180,93,10,241,132,30,98,142,87,52,183,113,48,151,134,181,64,33,105,178,64,38,86,204,251,245,110,65,212,236,47,128,146,184,113,35,164,226,19,5,117,173,120,32,64,226,92,86,220,172,187,95,126,228,13,88,247,191,241,198,212,79,216,230,230,102,223,214,222,140,204,173,226,250,93,191,122,184,11,221,255,250,177,225,244,205,54,67,174,157,23,245,65,61,186,19,17,62,13,38,149,131,89,71,32,12,0,209,0,45,1,56,64,208,235,221,110,11,190,187,113,198,168,231,79,149,159,56,149,144,241,213,110,188,157,196,77,91,246,55,206,122,253,129,89,127,255,228,147,169,127,187,255,190,251,222,184,113,161,6,17,120,155,54,184,140,6,232,199,162,46,254,196,61,163,181,99,106,143,233,69,167,221,110,243,67,239,161,164,28,30,157,12,104,5,135,105,136,2,54,63,242,132,222,237,145,180,120,214,95,255,10,26,156,234,60,184,120,11,4,220,241,250,233,51,254,240,250,235,35,22,173,110,124,248,217,238,29,59,10,74,38,79,238,221,173,233,17,184,30,47,107,36,35,10,215,143,63,90,243,19,135,84,71,87,174,207,117,138,65,140,240,235,67,97,0,45,2,128,87,10,128,178,31,4,40,72,138,125,189,224,113,235,33,12,118,236,104,28,213,88,180,248,165,173,237,70,121,93,114,199,95,94,190,123,242,45,175,222,178,97,93,211,252,241,115,190,156,157,117,203,244,166,86,78,75,248,77,158,0,105,152,147,152,184,116,210,204,225,0,155,6,1,186,142,174,232,51,132,252,180,29,230,142,144,18,241,54,46,68,146,74,0,14,110,72,9,138,33,202,3,122,143,224,209,120,140,154,52,32,128,201,168,245,8,85,157,54,118,198,39,47,255,109,242,125,247,221,55,249,245,187,95,125,249,169,167,212,234,45,91,246,39,169,105,142,177,147,38,183,108,204,91,117,243,170,165,81,131,49,119,180,15,107,139,25,162,64,84,228,122,76,36,236,80,8,180,124,120,199,67,35,138,238,12,217,180,138,117,200,203,1,72,195,146,31,29,149,161,90,5,197,218,231,201,74,217,209,184,184,41,51,107,93,211,244,25,9,183,220,253,192,212,169,55,62,48,121,234,173,83,31,152,252,234,139,87,94,125,121,92,18,173,102,73,53,77,122,8,143,49,177,119,98,236,16,31,28,77,197,34,219,14,12,2,60,188,230,144,221,73,64,4,218,72,191,94,241,0,52,194,232,72,196,111,51,161,48,4,0,65,1,128,127,20,220,202,145,73,179,137,52,230,167,124,53,189,183,55,191,138,77,154,209,248,250,221,183,223,120,235,212,91,111,191,253,214,91,111,189,241,129,87,27,94,125,57,174,183,167,213,204,49,17,94,232,73,241,150,85,227,215,70,13,14,31,223,196,96,151,35,15,12,121,136,230,201,8,70,18,120,173,222,201,11,122,229,56,58,68,114,250,240,134,48,89,28,200,32,82,0,124,160,247,123,60,110,228,23,200,214,2,205,80,106,51,197,122,241,204,130,146,7,222,186,15,217,158,10,4,83,111,189,113,195,139,91,94,30,149,130,27,235,205,62,154,133,188,202,209,227,143,198,30,24,188,129,18,219,134,141,30,173,0,188,185,15,173,216,79,35,24,30,26,127,125,127,206,131,153,62,164,117,67,232,155,28,240,110,66,253,73,64,210,235,161,57,214,35,5,0,0,29,31,11,70,35,167,145,53,26,163,177,169,32,99,228,91,247,223,135,108,79,189,125,42,0,44,84,189,124,119,201,111,73,156,154,79,249,192,126,143,87,149,184,246,155,153,167,175,198,64,236,101,172,173,13,98,224,225,239,86,244,85,228,125,109,176,26,12,193,30,20,117,90,164,128,199,4,57,128,52,161,126,32,188,148,178,100,113,51,132,40,74,176,5,220,74,125,64,7,136,33,139,9,93,158,47,45,35,185,113,242,27,136,224,214,169,176,110,157,122,203,171,143,76,238,248,173,215,199,37,61,233,245,33,92,67,250,218,255,122,250,153,171,153,232,155,77,88,106,223,77,93,251,160,254,6,93,114,48,104,199,236,22,20,246,54,139,197,6,65,102,226,72,241,90,0,68,96,104,96,112,1,185,64,241,141,139,131,121,193,129,118,170,175,170,36,57,121,209,253,111,220,165,120,1,214,228,151,239,127,235,147,5,191,101,57,188,34,197,13,163,153,163,71,174,143,125,252,244,51,195,182,97,204,148,40,43,102,149,3,12,102,165,12,180,12,3,40,40,108,131,182,211,109,226,76,164,200,153,0,100,40,128,195,162,37,10,123,49,92,112,187,165,1,0,151,22,136,45,38,163,122,94,242,7,201,139,238,126,227,254,187,158,184,29,214,19,247,223,255,198,125,255,81,176,159,117,24,89,131,17,253,56,167,197,190,235,238,24,4,120,168,15,219,20,57,41,215,106,149,72,59,77,219,237,118,217,37,194,69,219,60,16,233,122,16,0,20,224,44,215,2,56,100,130,205,76,241,226,3,0,60,148,10,94,107,129,48,53,178,189,25,117,27,51,94,152,124,195,13,55,220,5,235,134,27,222,184,111,121,73,193,116,136,255,30,197,62,0,104,242,190,128,201,100,8,64,76,100,109,208,42,201,152,61,40,203,238,0,58,1,225,56,184,56,180,205,76,164,139,3,23,184,175,1,48,121,152,35,212,244,36,163,81,114,40,247,112,57,30,138,133,19,20,176,112,237,89,69,9,157,157,201,117,159,220,119,255,13,104,221,49,245,133,228,236,130,20,77,143,222,15,245,4,133,137,177,37,34,242,116,199,233,33,46,104,123,199,234,12,210,86,187,94,18,220,122,109,72,12,245,112,90,183,70,131,246,128,2,32,130,11,2,195,1,76,238,214,35,89,59,95,244,113,182,126,5,72,222,130,14,51,3,156,145,154,158,220,217,249,126,66,242,11,35,111,156,122,235,39,247,188,144,156,144,125,54,163,201,8,213,11,145,66,77,243,209,153,125,81,131,143,86,32,128,24,240,128,85,134,137,87,8,104,209,25,40,236,64,141,0,189,184,70,48,185,72,23,248,96,16,160,31,193,4,205,206,145,233,113,108,255,93,108,14,221,60,71,0,231,44,164,39,51,185,46,251,131,15,234,234,146,51,150,148,214,189,144,156,124,48,187,232,236,139,0,160,229,0,129,243,59,4,159,97,197,209,211,67,131,48,166,173,237,35,187,132,38,110,73,185,126,160,212,56,52,130,3,210,124,248,14,38,249,61,128,0,167,161,216,13,117,179,182,114,10,0,152,39,157,78,155,243,92,192,66,26,213,99,75,206,100,191,151,83,151,17,199,110,217,214,250,210,163,25,167,146,75,41,14,41,0,233,20,82,134,96,51,230,214,12,43,70,49,145,49,214,16,140,65,146,219,66,138,70,17,190,7,153,7,1,52,130,5,221,23,21,141,30,20,133,225,43,135,194,12,246,29,166,102,250,136,55,169,110,130,183,135,20,80,12,112,164,211,2,78,8,88,44,36,153,150,81,208,89,92,84,240,213,22,188,121,235,113,124,203,87,16,131,172,3,37,11,63,186,219,36,8,26,145,121,108,88,12,188,211,118,76,228,253,50,225,214,26,209,93,115,240,184,67,163,17,194,27,158,19,195,10,192,104,212,140,190,162,37,121,14,149,40,139,134,97,61,79,197,45,111,98,124,253,183,112,45,104,9,1,41,96,108,207,250,170,160,32,163,201,107,60,126,188,189,185,221,247,82,220,140,222,118,14,1,64,178,176,89,156,146,222,201,45,29,124,24,8,197,64,164,21,135,12,164,183,137,138,125,183,27,196,215,244,103,28,45,0,24,197,0,74,8,104,78,133,32,6,91,136,192,196,176,132,188,112,201,109,219,81,28,192,82,236,91,148,211,52,163,143,221,254,215,117,184,175,89,134,196,173,233,217,250,210,246,43,62,193,209,19,6,112,130,210,18,19,57,204,5,109,155,172,18,140,1,60,232,15,151,47,19,4,100,117,143,99,80,1,92,84,50,81,179,50,167,35,9,128,192,98,34,104,34,208,186,125,238,11,153,70,18,18,128,173,31,0,29,168,59,160,49,63,98,52,26,181,122,27,196,177,163,157,82,183,115,130,146,174,121,155,2,224,34,222,30,246,64,99,76,76,46,77,235,67,33,17,252,41,107,8,150,97,188,132,199,161,12,4,8,192,8,0,110,214,19,30,16,4,8,56,116,231,68,8,200,52,19,104,190,101,209,230,145,91,125,1,173,195,214,79,0,12,232,182,10,233,131,224,213,250,37,15,68,51,167,97,218,33,4,180,72,1,116,180,227,132,102,190,229,149,142,97,49,144,171,60,184,4,242,19,132,204,208,52,205,16,30,0,6,250,0,4,0,142,147,14,153,37,56,101,15,8,202,158,3,9,60,50,203,186,73,118,239,220,219,110,193,101,19,228,163,64,160,159,0,113,122,32,158,121,222,111,211,52,67,59,106,114,5,194,57,112,0,64,194,233,135,175,6,129,18,3,52,14,250,187,120,206,205,104,188,24,69,41,0,38,135,198,227,81,60,96,36,188,38,40,229,10,128,214,166,0,216,4,15,193,178,132,141,123,245,158,205,15,106,72,89,139,0,2,131,0,130,132,74,186,95,112,64,55,220,236,240,160,175,161,91,190,90,116,186,1,78,192,173,79,126,49,44,19,218,113,222,69,90,220,50,195,16,116,139,218,128,177,50,212,86,212,238,137,226,113,28,39,48,138,209,208,30,133,64,219,47,129,195,67,48,12,163,55,178,35,230,110,158,224,35,221,54,91,96,128,0,1,160,150,26,61,229,227,64,4,14,165,159,69,163,13,58,219,129,132,37,241,246,136,135,135,2,180,209,248,57,167,69,14,178,172,204,154,171,205,45,24,3,0,176,19,52,38,209,4,83,6,102,200,55,16,140,226,3,14,218,99,45,138,102,173,27,0,96,120,49,110,219,124,207,230,109,62,220,50,28,192,175,181,249,81,184,42,10,64,66,69,155,176,153,179,40,183,155,1,64,47,98,7,134,215,2,17,210,184,151,198,88,13,86,85,157,111,192,188,208,0,160,219,92,100,72,16,69,214,64,169,85,20,65,112,110,0,224,57,27,74,78,208,178,17,40,86,245,161,221,139,238,185,103,243,172,102,156,23,28,22,9,66,16,138,2,20,69,52,78,192,247,113,74,7,229,208,42,145,171,69,37,30,0,96,172,145,120,39,246,105,255,179,118,74,42,166,197,32,1,66,183,122,189,134,134,234,252,221,24,1,63,72,64,53,10,105,253,184,214,160,166,168,106,21,35,107,24,32,32,57,11,2,32,45,122,2,73,160,209,251,39,108,30,57,114,243,95,182,244,240,18,36,1,75,192,37,6,44,90,69,6,116,50,237,130,148,226,128,79,97,180,224,45,146,222,166,156,178,194,71,189,30,199,115,223,28,0,128,60,16,164,137,86,202,208,42,211,249,13,42,136,1,66,48,105,188,72,57,125,8,183,87,87,83,152,185,158,98,220,94,6,61,192,18,6,224,36,2,8,32,101,248,65,2,32,88,180,69,180,72,8,192,73,186,64,2,135,86,113,58,180,171,8,0,46,27,0,64,121,144,64,82,14,123,1,95,196,43,187,6,92,176,178,214,96,167,81,51,228,197,84,13,42,179,26,147,53,14,130,37,52,90,153,16,67,88,3,0,84,235,204,180,94,102,161,67,228,64,98,0,224,5,2,156,224,37,252,12,139,36,184,103,228,132,173,56,2,176,72,164,203,137,218,103,148,67,160,146,245,56,144,2,232,190,47,15,45,30,16,72,54,216,30,90,61,172,16,158,218,15,240,251,212,60,218,222,74,229,83,52,171,110,104,80,229,171,105,89,35,176,180,215,173,167,9,240,128,46,31,163,174,84,85,91,25,19,235,69,215,30,150,192,70,32,227,240,231,200,83,139,230,142,92,116,207,39,47,66,194,66,97,120,14,52,178,104,149,145,222,68,246,160,148,206,43,195,29,7,1,160,135,254,94,143,0,208,84,39,249,108,107,195,0,43,98,114,131,24,86,221,64,177,88,126,67,67,117,181,26,46,94,131,1,0,75,233,113,189,65,101,198,12,13,42,248,42,199,98,131,0,22,2,36,176,19,126,2,59,210,180,121,209,200,69,139,70,44,220,173,241,65,150,131,138,236,10,132,251,22,232,78,26,40,151,9,61,238,136,142,249,1,128,224,67,208,233,35,31,184,161,171,231,115,167,244,199,128,193,78,85,231,85,81,180,1,9,80,173,102,88,13,65,209,94,6,195,252,162,108,208,169,41,179,74,85,101,166,3,50,38,139,28,105,66,37,23,134,21,0,96,25,189,31,107,125,106,220,92,68,240,224,131,153,94,92,105,139,92,188,146,249,140,70,170,98,67,190,76,90,108,10,0,154,229,244,188,104,3,21,144,22,146,32,16,246,212,48,192,138,99,86,93,61,216,105,173,86,0,12,172,157,160,13,173,12,139,209,98,136,105,129,168,4,251,213,123,40,194,67,123,161,93,228,44,232,233,41,18,130,0,124,224,215,211,6,118,27,0,0,193,184,69,35,142,224,184,19,74,34,180,200,2,231,227,168,188,134,134,50,175,209,134,0,68,222,45,128,89,173,200,195,207,241,240,202,45,9,132,213,186,230,244,81,136,129,21,186,74,29,10,53,20,1,213,8,128,245,26,212,52,107,167,8,81,79,155,163,13,230,122,85,117,117,181,25,6,92,38,236,3,151,178,17,53,126,130,213,107,188,20,213,58,34,110,164,178,230,62,184,161,25,61,123,229,116,137,56,110,206,131,136,110,168,102,16,128,24,2,0,116,221,208,241,17,140,141,183,185,33,8,252,12,149,155,187,175,6,186,226,152,188,104,144,152,218,221,160,83,69,87,231,231,99,52,203,130,203,33,49,133,252,12,22,93,109,174,142,80,229,231,171,26,40,135,134,9,144,156,203,228,114,185,72,78,240,232,53,176,21,53,68,171,225,200,139,139,70,246,19,220,54,34,107,55,107,244,137,220,214,180,216,61,106,0,48,123,141,1,30,221,108,228,245,22,30,185,0,0,96,176,19,220,178,160,101,90,242,169,194,53,169,8,160,246,74,149,154,202,215,169,84,112,169,230,86,26,162,145,38,188,152,38,4,165,33,186,186,90,249,178,74,101,246,114,140,6,194,217,133,22,136,12,157,59,193,104,8,154,162,142,76,184,173,159,224,158,185,155,231,62,56,107,194,172,189,41,59,50,89,72,42,87,212,26,18,10,35,2,144,181,0,0,61,167,158,33,72,165,237,231,136,22,200,251,133,109,88,76,122,158,78,101,54,168,193,78,52,188,169,233,86,150,194,8,13,67,115,132,157,82,69,231,131,121,112,13,124,164,29,94,77,15,164,55,88,16,135,130,7,6,7,200,69,44,70,209,212,131,115,71,94,93,247,108,94,62,119,81,206,206,122,59,0,52,80,26,52,93,146,138,2,90,180,249,121,0,16,56,19,204,117,156,219,80,149,111,238,3,128,21,121,186,124,181,186,10,60,160,139,86,53,24,48,12,146,0,225,133,119,218,90,166,171,142,142,174,6,103,130,11,242,41,47,2,8,43,0,253,6,180,37,2,124,27,184,10,35,54,204,189,103,16,96,228,39,159,196,21,77,87,211,123,64,1,76,3,45,133,162,128,91,171,213,251,17,8,193,184,61,22,104,178,60,28,163,174,174,28,163,0,212,154,213,112,149,42,240,65,131,10,245,3,94,168,181,94,47,36,167,8,85,21,188,65,44,153,171,26,204,80,167,53,92,88,2,152,133,208,25,158,224,70,13,84,43,36,141,89,155,195,198,97,141,188,113,194,162,229,141,137,71,176,170,134,87,163,89,13,122,54,20,221,239,180,65,42,68,79,3,75,68,80,208,16,232,62,0,71,210,102,243,250,54,20,3,149,106,16,90,133,8,26,204,20,230,37,24,136,67,144,22,109,75,20,202,176,11,33,10,243,13,240,79,168,79,71,33,0,233,29,26,14,1,82,54,198,50,24,197,26,30,188,39,108,255,193,27,183,77,40,221,249,218,216,122,26,0,26,170,89,15,52,181,36,184,30,58,71,27,196,160,40,73,50,195,57,24,66,118,155,28,164,3,107,89,175,196,64,110,126,21,50,175,83,69,168,212,20,171,241,210,173,52,70,25,204,200,62,16,64,4,84,87,229,87,67,156,82,12,122,150,18,1,216,120,165,51,51,201,192,233,165,13,24,179,110,145,98,126,214,132,215,23,46,218,57,182,177,23,195,40,248,201,61,97,0,112,65,8,157,105,240,16,2,54,153,209,246,160,82,230,49,9,36,97,93,63,27,41,240,117,245,21,69,1,208,218,0,241,79,83,24,102,64,78,137,70,92,136,2,94,64,138,164,90,217,126,5,160,45,224,17,128,86,96,224,155,189,20,228,210,89,15,142,28,57,107,194,228,133,147,23,239,28,59,182,113,29,141,237,142,80,53,84,121,77,34,200,142,98,192,2,0,33,148,8,101,198,221,35,123,81,155,105,225,8,250,208,108,37,6,20,43,200,144,185,213,139,54,22,101,80,231,55,212,135,175,125,15,162,168,106,200,55,155,1,192,129,170,60,7,10,216,208,68,140,154,83,6,5,45,133,209,47,206,154,48,97,225,132,133,11,31,76,152,55,182,113,250,110,80,160,94,21,177,199,27,48,9,208,234,65,247,132,150,136,235,9,112,1,193,201,140,135,129,234,78,122,16,192,166,152,136,50,228,232,104,21,228,27,3,171,97,193,190,218,188,71,21,81,241,246,133,194,248,194,13,42,213,30,208,255,74,181,26,117,139,14,229,161,86,229,228,60,212,195,7,96,63,19,12,10,23,131,65,157,54,97,219,132,109,11,83,138,30,29,59,234,249,117,128,244,207,136,61,17,101,24,77,195,59,141,49,176,251,60,208,95,153,160,173,113,51,158,0,43,203,172,167,135,228,236,21,145,10,0,82,160,26,210,176,25,243,122,41,181,97,75,53,68,67,196,186,196,241,243,231,39,93,184,112,33,125,93,253,158,61,249,16,2,16,31,253,79,84,218,4,91,8,246,23,39,74,4,99,165,204,209,186,8,93,69,218,186,172,151,210,82,82,182,143,239,93,103,200,205,205,69,73,37,58,223,96,104,49,88,65,32,212,63,200,48,235,19,76,128,131,254,142,166,29,240,41,41,18,10,64,94,25,18,25,236,171,192,2,85,173,134,23,17,27,226,227,227,47,204,31,63,103,252,174,93,227,231,76,156,95,152,85,88,175,86,99,44,103,84,30,234,229,96,28,4,231,242,50,77,181,68,71,68,228,85,28,202,171,208,229,229,85,71,172,143,143,175,168,136,200,173,252,186,182,76,23,13,171,172,210,108,54,192,162,236,168,141,246,144,162,135,38,56,15,76,20,84,128,32,76,164,168,141,232,87,160,170,10,234,77,67,62,166,161,81,218,109,80,213,199,167,195,165,95,152,191,107,206,196,57,115,38,46,93,58,103,252,210,249,137,23,226,179,202,52,62,152,160,141,162,168,149,245,122,134,138,174,168,88,31,191,62,190,176,48,226,235,218,218,175,43,129,33,79,167,139,168,45,171,173,141,14,175,178,202,202,74,179,1,180,179,66,137,177,195,53,115,140,93,118,184,77,4,37,123,24,7,236,16,93,36,246,123,0,168,66,171,1,122,18,111,126,3,100,195,134,136,136,248,183,211,47,36,38,238,58,124,120,215,174,39,143,78,92,53,241,232,68,88,115,230,44,93,73,209,118,153,176,99,45,58,93,101,109,69,97,95,225,202,149,133,241,121,181,185,6,40,109,199,106,43,163,117,58,93,116,89,244,144,85,86,86,214,2,0,224,5,150,240,64,87,27,96,233,128,41,224,130,120,38,64,16,4,0,46,200,71,246,85,80,6,24,117,3,74,137,17,21,21,21,133,233,233,233,137,55,31,78,156,127,51,248,97,206,147,79,78,156,248,228,196,85,115,118,141,79,156,157,151,155,171,203,91,223,23,191,126,204,250,67,121,186,218,74,248,221,208,83,90,1,160,178,18,174,92,119,213,190,174,31,64,209,0,179,210,48,111,64,216,200,24,115,220,228,242,50,30,224,17,113,5,224,144,162,128,42,159,98,41,104,201,26,84,224,212,248,248,194,244,183,223,70,0,55,195,58,188,235,230,93,115,198,143,95,58,113,233,28,88,179,227,15,29,2,183,143,137,104,129,186,97,183,219,245,65,59,2,48,228,86,86,70,127,127,41,0,255,68,207,69,26,88,217,66,114,30,19,99,149,77,38,25,230,96,141,131,84,0,222,25,131,0,84,85,106,12,131,228,9,101,7,66,48,175,98,101,250,236,244,200,195,135,111,14,191,193,66,16,115,150,34,41,230,236,138,76,63,100,176,98,118,38,200,96,6,116,186,106,165,114,143,129,253,178,33,226,171,6,17,90,90,90,80,106,131,64,12,112,188,195,20,160,91,3,80,140,100,2,102,63,114,12,228,129,119,82,85,213,64,96,134,1,164,190,42,31,85,133,136,10,8,130,244,244,217,145,137,32,128,98,93,33,128,5,42,76,92,245,228,210,57,135,243,48,66,38,0,192,90,89,86,91,86,9,219,174,118,184,235,135,32,128,4,45,144,96,49,3,75,200,22,173,201,3,205,37,235,10,4,160,159,113,224,214,200,24,108,211,166,119,226,81,194,51,236,86,213,87,155,243,81,66,82,65,52,199,191,253,118,122,98,98,100,226,97,88,253,4,163,15,223,12,4,16,147,75,231,207,94,217,18,36,130,4,99,167,169,220,202,232,218,220,92,240,126,109,244,143,172,50,179,193,174,247,219,205,192,108,178,8,50,17,96,49,143,43,224,97,88,78,254,125,228,38,4,240,251,138,106,232,8,170,161,234,66,85,66,225,8,46,174,136,95,249,118,204,5,208,32,17,1,160,119,5,101,215,174,57,75,151,142,79,156,159,88,9,21,45,72,91,193,1,160,64,174,121,64,0,213,247,140,87,130,254,12,212,110,162,197,192,16,22,240,62,12,191,20,237,10,152,32,139,175,143,220,132,20,216,180,41,102,140,206,92,22,157,223,146,95,93,150,159,159,95,6,93,72,68,33,164,225,194,212,217,138,27,144,4,135,15,15,16,64,60,206,79,140,183,162,211,12,16,192,240,79,93,165,25,194,191,44,186,172,246,90,128,50,115,139,1,237,17,86,31,242,137,34,109,96,244,34,228,16,179,225,56,131,29,135,156,164,94,57,123,197,138,21,10,192,166,152,21,241,135,242,80,66,131,85,145,167,124,132,141,80,8,34,164,167,131,27,18,251,173,131,19,110,134,220,48,62,178,208,106,103,100,2,242,129,221,222,162,43,171,212,125,79,118,104,175,160,193,138,54,183,0,67,11,96,88,173,84,37,164,11,216,11,134,188,245,149,106,93,101,110,89,222,138,182,21,3,0,202,255,66,95,17,211,150,190,34,38,189,45,38,102,101,225,202,194,67,135,10,97,33,128,54,36,3,122,67,222,0,9,14,39,206,78,175,192,8,101,209,0,0,251,61,2,210,143,46,90,55,176,253,97,35,195,82,174,98,189,114,29,233,179,47,68,94,152,13,191,104,118,100,100,36,250,133,109,240,2,93,62,172,255,21,96,0,251,43,158,11,17,205,56,137,0,0,0,0,73,69,78,68,174,66,96,130]';
+
+// 图片编辑组件：https://agontuk.github.io/vue-cropperjs/
+export default {
+  name: 'Home',
+
+  components: {
+    // FileUploader,
+    // DeepseekFileUploader,
+    DemoEditImage,
+    Basic,
+    UploadAvatar,
+    PictureCard,
+    AcceptLimitMaxsize,
+    CustomFileItemUploadBtn,
+    BeforeRemoveFile,
+    ChunkUpload,
+    AutoUpload,
+    ManualAddFile,
+    DefaultFileList,
+    SimpleStyle,
+    BreakpointResume
+  },
+
+  watch: {
+    '$i18n.locale': {
+      handler () {
+        this.$nextTick(() => {
+          let preEls = document.querySelectorAll('.demo-description pre');
+          for (let i = 0; i < preEls.length; i++) {
+            let preEl = preEls[i];
+            if (preEl.className.includes('language-')) {
+              prism.highlightElement(preEl);
+            }
+          }
+        });
+      },
+      immediate: true,
+    }
+  },
+
+  data () {
+    return {
+      nodejsDemoTab: 'serverjs',
+      serverjsCode: '',
+      packageJsonCode: '',
+
+      batchFileCount: 3,
+      batchChunkCount: 5,
+      batchChunkSize: 3,
+
+      testImgBase64: '',
+      byteArrMimeType: '',
+      customFileAutoUpload: false,
+      testByteArr: [],
+      defaultFileList: [
+        {
+          id: 'file1',
+          name: 'base64-file.png',
+          previewUrl: testImgBase64
+        },
+        {
+          id: 'file2',
+          name: 'url-file.png',
+          previewUrl: 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'
+        },
+        {
+          id: 'file3',
+          name: 'a-text-file.txt'
+        },
+        {
+          id: 'file4'
+        }
+      ],
+
+      uploadedChunkIndexes: '0,3,4,7,10,11,12,15'
+    };
+  },
+
+  computed: {},
+
+  methods: {
+    onFileAdded (file) {
+      console.log(this.$t('debug.fileAdded'), file);
+
+      /* const reader = new FileReader();
+      reader.onload = function(e) {
+        const arrayBuffer = e.target.result; // 读取结果为ArrayBuffer
+        const byteArray = new Uint8Array(arrayBuffer); // 转换为Uint8Array
+        const arr = [];
+        for (let i = 0; i < byteArray.length; ++i) {
+          arr.push(byteArray[i]);
+        }
+        console.log(byteArray); // 输出字节数组
+        console.log(222, JSON.stringify(arr));
+      };
+      reader.readAsArrayBuffer(file.file); // 以ArrayBuffer格式读取文件 */
+    },
+    onFileProgress (file) {
+      console.log(this.$t('debug.fileProgress'), file);
+    },
+    onFileComplete (fileData) {
+      console.log(this.$t('debug.fileComplete'), fileData);
+      return new Promise((resolve, reject) => {
+        if (fileData.useChunked) {
+          // 分片上传完成后的处理
+          const xhr = new XMLHttpRequest();
+          const data = {
+            uploadId: fileData.id,
+            fileName: fileData.file.name,
+            fileSize: fileData.file.size,
+          };
+
+          xhr.addEventListener('load', () => {
+            if (xhr.status === 200) {
+              resolve();
+            } else {
+              reject(new Error(xhr.statusText));
+            }
+          });
+
+          xhr.addEventListener('error', () => {
+            reject({
+              xhr,
+              code: xhr.status,
+              message: 'Network error'
+            });
+          });
+
+          xhr.open('POST', 'http://localhost:3001/upload/finalize');
+          xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+          xhr.send(JSON.stringify(data));
+        } else {
+          resolve();
+        }
+      });
+    },
+    onFileError (error) {
+      console.error(this.$t('debug.uploadError'), error);
+    },
+    /**
+     * 文件校验出错
+     * @param errorInfo
+     */
+    onFileExceed (errorInfo) {
+      console.log(this.$t('debug.fileValidationError'), errorInfo);
+      alert(errorInfo.message);
+    },
+    /**
+     * 请求处理器
+     * @param fileData
+     */
+    requestHandler (fileData) {
+      console.log(this.$t('debug.requestHandler'), fileData);
+      let {
+        file,
+        isUploadChunk,
+        chunk,
+        // id,
+        chunkIndex,
+        name,
+        fileData: chunkFileData
+      } = fileData;
+
+      if (!isUploadChunk) { // 上传单个文件
+        return {
+          url: 'http://localhost:3001/upload',
+          method: 'POST',
+          data: {
+            file: file,
+            name
+          }
+        };
+      }
+      let formData = new FormData();
+      formData.append('file', chunk);
+      formData.append('fileName', chunkFileData.file.name);
+      formData.append('uploadId', chunkFileData.id);
+      formData.append('chunkIndex', chunkIndex);
+      formData.append('totalChunks', chunkFileData.chunks);
+      formData.append('chunkMd5', fileData.extraData.chunkMd5);
+      return { // 上传分片文件
+        url: 'http://localhost:3001/upload/chunk',
+        method: 'POST',
+        data: formData
+      };
+    },
+    /**
+     *  请求响应处理器
+     * @param fileData
+     * @returns {Promise<never>}
+     */
+    respondHandler (fileData) {
+      console.log(this.$t('debug.respondHandler'), fileData);
+      // return Promise.reject('abc');
+    },
+    onBeforeUpload (fileData) {
+      if (!fileData.useChunked) {
+        return Promise.resolve();
+      }
+
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        const data = {
+          uploadId: fileData.id,
+          fileName: fileData.file.name,
+          fileSize: fileData.file.size,
+          fileType: fileData.file.type,
+        };
+
+        xhr.open('POST', 'http://localhost:3001/upload/init');
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhr.addEventListener('load', () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            try {
+              const response = JSON.parse(xhr.responseText);
+              resolve(response);
+            } catch (e) {
+              reject(new Error('Invalid response from server'));
+            }
+          } else {
+            reject(new Error(`HTTP ${xhr.status}: ${xhr.statusText}`));
+          }
+        });
+        xhr.addEventListener('error', () => {
+          reject(new Error('Network error occurred during upload initialization'));
+        });
+        xhr.send(JSON.stringify(data));
+      });
+    },
+    onBeforeUpload2 (fileData) {
+      if (!fileData.useChunked) {
+        return Promise.resolve();
+      }
+
+      return new Promise((resolve, reject) => {
+        let uploadedChunkIndexes = [];
+        let uploadedChunkIndexesStr = this.uploadedChunkIndexes;
+        if (uploadedChunkIndexesStr) {
+          uploadedChunkIndexes = uploadedChunkIndexesStr.split(',').map(item => {
+            return parseInt(item);
+          }).filter(item => !isNaN(item));
+        }
+
+        const xhr = new XMLHttpRequest();
+        const data = {
+          uploadId: fileData.id,
+          fileName: fileData.file.name,
+          fileSize: fileData.file.size,
+          fileType: fileData.file.type,
+        };
+
+        xhr.open('POST', 'http://localhost:3001/upload/init');
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhr.addEventListener('load', () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            try {
+              // 设置已上传的分片索引，组件在上传分片时会跳过这些已上传的分片
+              fileData.setUploadedChunks(fileData.id, uploadedChunkIndexes);
+              const response = JSON.parse(xhr.responseText);
+              resolve(response);
+            } catch (e) {
+              reject(new Error('Invalid response from server'));
+            }
+          } else {
+            reject(new Error(`HTTP ${xhr.status}: ${xhr.statusText}`));
+          }
+        });
+        xhr.addEventListener('error', () => {
+          reject(new Error('Network error occurred during upload initialization'));
+        });
+        xhr.send(JSON.stringify(data));
+      });
+    },
+    onBeforeUploadChunk (chunkData) {
+      console.log(this.$t('debug.chunkData'), chunkData);
+      return new Promise((resolve) => {
+        setTimeout(function () {
+          resolve({
+            chunkMd5: 'chunk_' + new Date().getTime()
+          });
+        }, 1000);
+      });
+    },
+    // 分片全部上传完成事件
+    onChunkUploadCompleted (fileData) {
+      console.log(this.$t('debug.chunkUploadComplete'), fileData.name);
+      return this.onFileComplete(fileData);
+    },
+    onBeroreRemoveFile (fileData) {
+      return new Promise((resolve, reject) => {
+        var res = window.confirm(this.$t('alerts.confirmRemove', { filename: fileData.name }));
+        return res ? resolve() : reject(res);
+      });
+    },
+    fillTestBase64 () {
+      this.testImgBase64 = testImgBase64;
+    },
+    addBase64Img () {
+      let testImgBase64 = this.testImgBase64;
+      if (!testImgBase64) {
+        alert(this.$t('alerts.enterBase64Image'));
+        return;
+      }
+      const parts = testImgBase64.split(',');
+      const mime = parts[0].match(/:(.*?);/)[1];
+      if (!mime) {
+        alert(this.$t('alerts.base64DataIncorrect'));
+        return;
+      }
+      const suffix = mime.split('/').pop().toLowerCase();
+      let name = `base64_img_${new Date().getTime()}.${suffix}`;
+      this.$refs.base64ImageUploader.addFile({
+        name,
+        file: testImgBase64,
+        previewUrl: testImgBase64,
+        type: mime
+      });
+      this.testImgBase64 = '';
+    },
+    fillTestByteArr () {
+      this.testByteArr = testByteArr;
+      this.byteArrMimeType = 'image/png';
+    },
+    addByteArrData () {
+      let testByteArr = this.testByteArr;
+      let byteArrMimeType = this.byteArrMimeType;
+      if (!testByteArr) {
+        alert(this.$t('alerts.enterByteArrayData'));
+        return;
+      }
+      if (!byteArrMimeType) {
+        alert(this.$t('alerts.enterByteArrayMimeType'));
+        return;
+      }
+
+      let byteArr = [];
+      try {
+        byteArr = JSON.parse(testByteArr);
+      } catch (e) {
+        alert(this.$t('alerts.byteArrayDataIncorrect'));
+        return;
+      }
+
+      const suffix = byteArrMimeType.split('/').pop().toLowerCase();
+      if (byteArrMimeType.split('/').length !== 2) {
+        alert(this.$t('alerts.mimeTypeFormatIncorrect'));
+        return;
+      }
+
+      console.log('byteArr', byteArr);
+      let name = `test_byte_${new Date().getTime()}.${suffix}`;
+      this.$refs.byteArrUploader.addFile({
+        name,
+        file: new Blob([Uint8Array.from(byteArr, Number)], { type: byteArrMimeType }),
+        previewUrl: '',
+        type: byteArrMimeType
+      });
+      this.testByteArr = '';
+      this.byteArrMimeType = '';
+    },
+    onCustomFileChange (evt) {
+      let file = evt.target.files[0];
+      console.log('onCustomFileChange', file);
+      this.$refs.customFileUploader.addFile({
+        name: file.name,
+        file,
+        previewUrl: '',
+        type: file.type
+      });
+    },
+    onFileRemove (fileData) {
+      console.log(this.$t('debug.fileRemove'), fileData);
+      if (fileData.source === 'defaultList') {
+        let id = fileData.id;
+        let index = this.defaultFileList.findIndex(item => item.id === id);
+        if (index > -1) {
+          this.defaultFileList.splice(index, 1);
+        }
+      }
+    }
+  },
+  mounted () {
+
+
+    // 使用 raw-loader 动态加载源码
+    import(/* webpackChunkName: "demo-source" */ `!!raw-loader!@/node-server/server.js`)
+      .then(res => {
+        let demoCode = res.default || '';
+        // console.log('demo 源码', demoCode);
+        this.serverjsCode = demoCode;
+        this.$nextTick(() => {
+          prism.highlightElement(this.$refs.serverjsRef);
+        });
+      })
+      .catch(() => {
+        this.serverjsCode = '--';
+      });
+    import(/* webpackChunkName: "demo-source" */ `@/node-server/package.json`)
+      .then(res => {
+        let demoCode = res.default || {};
+        console.log('package.json 源码', demoCode);
+        this.packageJsonCode = JSON.stringify(demoCode, null, 2);
+        this.$nextTick(() => {
+          prism.highlightElement(this.$refs.packageJsonRef);
+        });
+      })
+      .catch(() => {
+        this.packageJsonCode = '--';
+      });
+  }
+};
+</script>
+
+<style lang="scss">
+@use "demo";
+</style>
