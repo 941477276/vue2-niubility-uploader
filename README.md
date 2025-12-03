@@ -5,6 +5,9 @@ A powerful and highly customizable Vue2 file upload component supporting single/
 
 [中文文档](./README_CN.md)
 
+[Demo and Document (文档)](https://941477276.github.io/vue2-niubility-uploader/dist/#/start)
+
+
 ## ✨ Features
 
 ### 🚀 Core Features

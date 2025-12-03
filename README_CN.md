@@ -4,6 +4,9 @@
 
 A powerful and highly customizable Vue2 file upload component supporting single/multiple file uploads, large file chunking, resumable uploads, drag & drop, image preview and more.
 
+[Demo and Document (文档)](https://941477276.github.io/vue2-niubility-uploader/dist/#/start)
+
+
 ## ✨ 特性
 
 ### 🚀 核心功能
