@@ -358,7 +358,7 @@ export default {
 
 ```bash
 # 克隆项目
-git clone https://github.com/your-repo/vue2-niubility-uploader.git
+git clone https://github.com/vue2-niubility-uploader/vue2-niubility-uploader.git
 
 # 安装依赖
 cd vue2-niubility-uploader

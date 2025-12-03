@@ -359,7 +359,7 @@ Issues and Pull Requests are welcome!
 
 ```bash
 # Clone the project
-git clone https://github.com/your-repo/vue2-niubility-uploader.git
+git clone https://github.com/vue2-niubility-uploader/vue2-niubility-uploader.git
 
 # Install dependencies
 cd vue2-niubility-uploader
